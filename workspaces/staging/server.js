@@ -25,11 +25,16 @@ app.post('/bogusapi', (req, res, next) => {
 
 
 app.listen(PORT, () => {
-
+  const authString = 'majd:password' // can use basic credentials here cuz this behaves as the front-end
+  const encodedAuthString = Buffer.from(authString, 'utf8').toString('base64')
+  console.log("encodedAuthString: " + encodedAuthString)
   axios({
     method: 'POST', // to make it dynamic for all REST requests
     url: 'http://localhost:3000/register',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'authorization': encodedAuthString
+    },
     data: {
       apiName: apiName,
       protocol: protocol,
@@ -43,11 +48,3 @@ app.listen(PORT, () => {
   console.log('staging server started on port ' + PORT)
 })
 
-function authenticateToken(user) {
-  //  let _token_ = require('../creds.json');
-  console.log("token: " + user.token)
-  console.log("username: " + user.username)
-
-  return user.token == user.username.split("-")[1]
-  //return _token_ == token // if the token passed from the api gw is the same as the one on the server
-}

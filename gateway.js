@@ -28,12 +28,13 @@ const auth = (req, res, next) => {
   const user = registery.auth.users[username]
   if (user) { // if user exists
     if (user.username === username && user.password === password) {
+      console.log("Authorized!\n")
       next() // continue to the other parts in the code (routes)
     } else {
       res.send({ authenticated: false, path: url, message: 'Authentication Unsuccessful: Incorrect password' })
     }
   } else {
-    res.send({ authenticated: false, path: url, message: 'Authentication Unsuccessful: User ' + username + 'does not exist' })
+    res.send({ authenticated: false, path: url, message: 'Authentication Unsuccessful: User ' + username + ' does not exist' })
   }
 }
 
