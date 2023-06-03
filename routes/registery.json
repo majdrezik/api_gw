@@ -1,22 +1,23 @@
 {
   "services": {
     "staging": {
-      "loadBalancerStrategy": "ROUND_ROBIN",
-      "index": 0,
+      "index": 1,
       "instances": [
         {
           "apiName": "staging",
           "protocol": "http",
           "host": "localhost",
           "port": 3003,
-          "url": "http://localhost:3003/"
+          "url": "http://localhost:3003/",
+          "enabled": true
         },
         {
           "apiName": "staging",
           "protocol": "http",
           "host": "localhost",
           "port": 3004,
-          "url": "http://localhost:3004/"
+          "url": "http://localhost:3004/",
+          "enabled": true
         },
         {
           "apiName": "staging",
@@ -32,7 +33,16 @@
           "port": 3006,
           "url": "http://localhost:3006/"
         }
-      ]
+      ],
+      "loadBalancerStrategy": "ROUND_ROBIN"
+    }
+  },
+  "auth": {
+    "users": {
+      "majd": {
+        "username": "majd",
+        "password": "password"
+      }
     }
   }
 }

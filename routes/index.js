@@ -6,9 +6,61 @@ const fs = require('fs')
 const loadbalancer = require('../utils/loadbalancer')
 var TOKEN
 
+
+/**
+ * enable/disable instances under registery.apiName.instances
+ * for testing/maintanance purposes so the api gw doesn't use the instance
+ * example:
+ 
+curl -X POST -H 'Content-Type: application/json' -d '{"url":"http://localhost:3004/","enabled":true}' http://localhost:3000/enable-instance/staging 
+curl -X POST -H 'Content-Type: application/json' -d '{"url":"http://localhost:3003/","enabled":true}' http://localhost:3000/enable-instance/staging 
+ 
+Now if we curl, we'll have 2 instances ready to serve our requests
+-----------------------------------------------
+curl curl http://localhost:3000/staging/fakeapi
+>     url: http://localhost:3003/
+>     url: http://localhost:3004/
+*/
+router.post('/enable-instance/:apiName', (req, res) => {
+  const apiName = req.params.apiName
+  const requestBody = req.body
+  const instances = registery.services[apiName].instances
+  const index = instances.findIndex((srv) => {
+    return requestBody.url === srv.url
+  })
+  if (index == -1) { // if the url we're trying to enable isn't in the registery
+    res.send({ status: "error", message: "couldn't find ['" + requestBody.url + "'] for service: " + apiName })
+  } else {
+    instances[index].enabled = requestBody.enabled
+    fs.writeFile(
+      './routes/registery.json',
+      JSON.stringify(registery),
+      (error) => { // callback
+        if (error) {
+          res.send("could not enable/disable ['" + requestBody.url + "'] for service: " + apiName + "\n" + error)
+        } else {
+          res.send("successfully enabled/disabled " + registerationInfo.apiName)
+        }
+      })
+  }
+})
+
+
 router.all('/:apiName/:path', (req, res) => {
   const service = registery.services[req.params.apiName]
   if (service) {
+    if (!service.loadBalancerStrategy) {
+      service.loadBalancerStrategy = "ROUND_ROBIN"
+      fs.writeFile(
+        './routes/registery.json',
+        JSON.stringify(registery),
+        (error) => { // callback
+          if (error) {
+            res.send("could not write loadbalancer strategy")
+          }
+        })
+    }
+
     // 1. run the loadbalancing function
     // 2. get the ${url} using the newIndex that's returned
     const newIndex = loadbalancer[service.loadBalancerStrategy](service)
@@ -60,7 +112,7 @@ router.post('/register', (req, res) => {
       we use push here to create a list of configs instead of 1 object
       so we can scale easily, same service can now scale on different ports
     */
-    registery.services[registerationInfo.apiName].push({ ...registerationInfo }) //deconstruction
+    registery.services[registerationInfo.apiName].instances.push({ ...registerationInfo }) //deconstruction
     fs.writeFile(
       './routes/registery.json',
       JSON.stringify(registery),
@@ -86,10 +138,10 @@ router.post('/unregister', (req, res) => {
 
   if (apiAlreadyExists(registerationInfo)) {
 
-    const index = registery.services[registerationInfo.apiName].findIndex(instance => {
+    const index = registery.services[registerationInfo.apiName].instances.findIndex(instance => {
       return registerationInfo.url === instance.url
     })
-    registery.services[registerationInfo.apiName].splice(index, 1)
+    registery.services[registerationInfo.apiName].instances.splice(index, 1)
     fs.writeFile(
       './routes/registery.json',
       JSON.stringify(registery),
@@ -116,7 +168,7 @@ router.post('/unregister', (req, res) => {
 const apiAlreadyExists = (registerationInfo) => {
   let exists = false
 
-  registery.services[registerationInfo.apiName].forEach(instance => {
+  registery.services[registerationInfo.apiName].instances.forEach(instance => {
     if (instance.url == registerationInfo.url) {
       exists = true
     }
