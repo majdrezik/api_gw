@@ -1,0 +1,38 @@
+{
+  "services": {
+    "staging": {
+      "loadBalancerStrategy": "ROUND_ROBIN",
+      "index": 0,
+      "instances": [
+        {
+          "apiName": "staging",
+          "protocol": "http",
+          "host": "localhost",
+          "port": 3003,
+          "url": "http://localhost:3003/"
+        },
+        {
+          "apiName": "staging",
+          "protocol": "http",
+          "host": "localhost",
+          "port": 3004,
+          "url": "http://localhost:3004/"
+        },
+        {
+          "apiName": "staging",
+          "protocol": "http",
+          "host": "localhost",
+          "port": 3005,
+          "url": "http://localhost:3005/"
+        },
+        {
+          "apiName": "staging",
+          "protocol": "http",
+          "host": "localhost",
+          "port": 3006,
+          "url": "http://localhost:3006/"
+        }
+      ]
+    }
+  }
+}
