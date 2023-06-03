@@ -15,7 +15,9 @@ const protocol = "http"
 
 // curl -X GET localhost:3000/test_api/fakeapi
 app.get('/getDiscount', (req, res, next) => {
-  res.send("Discount micro-service is running on port " + PORT)
+  // res.send("Discount micro-service is running on port " + PORT)
+  const data = { message: 'Discount micro-service is running on port ' + PORT, status: 200 };
+  res.status(200).json(data);
 })
 
 app.listen(PORT, () => {

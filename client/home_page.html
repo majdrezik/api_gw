@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .center {
+      line-height: 200px;
+      height: 200px;
+      border: 3px solid green;
+      text-align: center;
+    }
+
+    .center-result {
+      line-height: 200px;
+      height: 200px;
+      top: 20%;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body class="center">
+  <h2 id="srvcName" class="center-result"></h2>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" onclick="catalog()" class="btn btn-secondary">Catalog</button>
+    <button type="button" onclick="order()" class="btn btn-secondary">Order</button>
+    <button type="button" onclick="discount()" class="btn btn-secondary">Discount</button>
+  </div>
+</body>
+
+
+<script>
+
+  // Retrieve token from localStorage
+  var token = localStorage.getItem('token');
+  console.log(token); // still in base64
+  var isUserLoggedIn = localStorage.getItem("isUserLoggedIn")
+
+  if (isUserLoggedIn == 'false')
+    location.href = './index.html'
+
+  // in case we went back to login page, we can redirect to home without having to enter credentials
+
+  // const catalog = async () => {
+  //   const headers = new Headers();
+  //   headers.append("authorization", token);
+  //   headers.append("Content-Type", "application/json");
+  //   const url = 'http://localhost:3000/catalog/showCatalog';
+
+  //   try {
+  //     const response = await fetch(url, {
+  //       method: "GET",
+  //       headers: headers
+  //     })
+
+  //     if (response.status === 204) {
+  //       console.log("No content");
+  //       return;
+  //     }
+  //     if (response.ok) {
+  //       var data = await response.text();
+
+  //       // Check if the response body is not empty
+  //       if (data.trim().length > 0) {
+  //         const data = JSON.parse(data);
+
+  //         if (data.status === 200) {
+  //           var resultElement = document.getElementById('srvcName');
+  //           resultElement.innerHTML = JSON.stringify(data);
+  //         }
+
+  //       }
+  //       else {
+  //         console.error('Request failed with status:', data.status);
+  //       }
+  //     }
+  //     else {
+  //       res.send('error, response not OK')
+  //     }
+  //     // if (response.ok) {
+  //     //   const data = await response.json();
+
+  //     //   if (data) {
+  //     //     const resultElement = document.getElementById('srvcName');
+  //     //     resultElement.innerHTML = `<h1> ${JSON.stringify(data)} </h1>`;
+  //     //     // document.body.appendChild(resultElement);
+  //     //   } else {
+  //     //     console.error('Empty response');
+  //     //   }
+  //     // } else {
+  //     //   console.error('Request failed with status:', response.status);
+  //     // }
+
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // }
+
+
+
+  const catalog = async () => {
+    const headers = new Headers();
+    headers.append("authorization", token);
+    headers.append("Content-Type", "application/json");
+    const url = 'http://localhost:3000/catalog/showCatalog';
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: headers
+      });
+
+      if (response.status === 204) {
+        console.log("No content");
+        return;
+      }
+
+      if (response.ok) {
+        const responseBody = await response.text();
+
+        // Check if the response body is not empty
+        if (responseBody.trim().length > 0) {
+          const data = JSON.parse(responseBody);
+
+          if (data.status === 200) {
+            const resultElement = document.getElementById('srvcName');
+            resultElement.innerHTML = JSON.stringify(data);
+            // document.body.appendChild(resultElement);
+          } else {
+            console.error('Request failed with status:', data.status);
+          }
+        } else {
+          console.log("Empty response body");
+        }
+      } else {
+        console.error('Request failed with status:', response.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+
+
+  const order = async () => {
+    const headers = new Headers();
+    headers.append("authorization", token);
+    headers.append("Content-Type", "application/json");
+    const url = 'http://localhost:3000/order/getOrder';
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: headers
+      });
+
+      if (response.status === 204) {
+        console.log("No content");
+        return;
+      }
+
+      if (response.ok) {
+        const responseBody = await response.text();
+
+        // Check if the response body is not empty
+        if (responseBody.trim().length > 0) {
+          const data = JSON.parse(responseBody);
+
+          if (data.status === 200) {
+            const resultElement = document.getElementById('srvcName');
+            resultElement.innerHTML = JSON.stringify(data);
+            // document.body.appendChild(resultElement);
+          } else {
+            console.error('Request failed with status:', data.status);
+          }
+        } else {
+          console.log("Empty response body");
+        }
+      } else {
+        console.error('Request failed with status:', response.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+  const discount = async () => {
+    const headers = new Headers();
+    headers.append("authorization", token);
+    headers.append("Content-Type", "application/json");
+    const url = 'http://localhost:3000/discount/getDiscount';
+
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: headers
+      });
+
+      if (response.status === 204) {
+        console.log("No content");
+        return;
+      }
+
+      if (response.ok) {
+        const responseBody = await response.text();
+
+        // Check if the response body is not empty
+        if (responseBody.trim().length > 0) {
+          const data = JSON.parse(responseBody);
+
+          if (data.status === 200) {
+            const resultElement = document.getElementById('srvcName');
+            resultElement.innerHTML = JSON.stringify(data);
+            // document.body.appendChild(resultElement);
+          } else {
+            console.error('Request failed with status:', data.status);
+          }
+        } else {
+          console.log("Empty response body");
+        }
+      } else {
+        console.error('Request failed with status:', response.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+
+
+
+  function logout() {
+    // Perform the logout action or invalidate the token
+    // For example:
+    // token = null; // Invalidate the token by setting it to null
+    console.log('User logged out');
+    localStorage.setItem("isUserLoggedIn", 'false')
+    localStorage.removeItem("token");
+    alert('Session expired, redirecting to login page')
+    location.reload();
+    location.href = './index.html' // after timeout, redirect to login page
+
+  }
+
+  // Function to start the timer for 5 minutes
+  function startLogoutTimer() {
+    // Set the timer to expire after 5 minutes (300,000 milliseconds)
+    const fiveMinutes = 5 * 60 * 1000;
+    setTimeout(logout, fiveMinutes);
+  }
+
+  // Call the function to start the logout timer when the user logs in or refreshes the page
+  startLogoutTimer();
+
+</script>
+
+</html>

@@ -14,8 +14,9 @@ const protocol = "http"
 
 
 app.get('/getOrder', (req, res, next) => {
-  res.send("Order micro-service is running on port " + PORT)
-  // res.send("TESTING fakeapi micro-service that is running on port " + PORT)
+  // res.send("Order micro-service is running on port " + PORT)
+  const data = { message: 'Order micro-service is running on port ' + PORT, status: 200 };
+  res.status(200).json(data);
 })
 
 

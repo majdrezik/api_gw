@@ -15,7 +15,9 @@ const protocol = "http"
 
 // curl -X GET localhost:3000/test_api/fakeapi
 app.get('/showCatalog', (req, res, next) => {
-  res.send("Catalog micro-service is running on port " + PORT)
+  // res.send("Catalog micro-service is running on port " + PORT)
+  const data = { message: 'Catalog micro-service is running on port ' + PORT, status: 200 };
+  res.json(data);
 })
 
 

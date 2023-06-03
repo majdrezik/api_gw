@@ -72,7 +72,7 @@ router.all('/:apiName/:path', (req, res) => {
       headers: req.headers,
       data: req.body
     }).then((response) => {
-      res.send(response.data)
+      res.json(response.data)
     }).catch(error => {
       res.send("")
     })

@@ -12,14 +12,6 @@
           "apiName": "catalog",
           "protocol": "http",
           "host": "localhost",
-          "port": 1234,
-          "enabled": true,
-          "url": "http://localhost:1234/"
-        },
-        {
-          "apiName": "catalog",
-          "protocol": "http",
-          "host": "localhost",
           "port": 1111,
           "enabled": true,
           "url": "http://localhost:1111/"
@@ -75,7 +67,7 @@
       {
         "username": "majd",
         "password": "password",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiU2F0IEp1biAwMyAyMDIzIDEyOjEzOjM2IEdNVCswMzAwIChJc3JhZWwgRGF5bGlnaHQgVGltZSkiLCJ1c2VySWQiOjEyLCJpYXQiOjE2ODU3ODM2MTZ9.W08zY23YpZfjYpma9njsz-Ceyd_C_Z3-TL-D0d-7fKY"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiU2F0IEp1biAwMyAyMDIzIDE1OjM2OjM1IEdNVCswMzAwIChJc3JhZWwgRGF5bGlnaHQgVGltZSkiLCJ1c2VySWQiOjEyLCJpYXQiOjE2ODU3OTU3OTV9.JJkDUd9NgUzZOlTPTvKk5aSWa_bupDaL8S3Kr2XSpyo"
       },
       {
         "username": "bob",
