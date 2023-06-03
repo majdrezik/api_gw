@@ -14,9 +14,9 @@
 
 ### enabling / disabling an instance in a service is done for times such as maintanance, server down, nightly shutdown etc, in those cases, the api gw should not use the instances
 
-### In order to disable the service, run:
+### In order to disable the service, run: (where bWFqZDpwYXNzd29yZA== is base64 encoding of the username:password)
 
-    curl -X POST -H 'Content-Type: application/json' -d '{"url":"http://localhost:{YOUR_PORT}/","enabled":false}' http://localhost:3000/enable-instance/staging 
+    curl -X POST -H 'Content-Type:application/json' -H 'authorization:bWFqZDpwYXNzd29yZA==' -d '{"url":"http://localhost:3003/","enabled":true}' http://localhost:3000/enable-instance/staging 
 
 ### Notice the change in routes/registery.json file.
 
@@ -43,15 +43,19 @@
         
   ### by running the following more than once:
       
-      curl http://localhost:3000/staging/fakeapi
-      curl http://localhost:3000/staging/fakeapi
+      curl -X POST -H 'Content-Type:application/json' -H 'authorization:bWFqZDpwYXNzd29yZA==' http://localhost:3000/staging/fakeapi
+      curl -X POST -H 'Content-Type:application/json' -H 'authorization:bWFqZDpwYXNzd29yZA==' http://localhost:3000/staging/fakeapi
 
-### You will have these results - showing the effect of the loadbalancing:
+### You will have these results (in the GW terminal, not the service) - showing the effect of the loadbalancing:
+    username: majd | password: password
+    Authorized!
+    url: http://localhost:3003/  <----------- Notice the port
     
-    url: http://localhost:3003/
-    url: http://localhost:3004/
+    username: majd | password: password
+    Authorized!
+    url: http://localhost:3004/  <----------- Notice the port
       
-### meaning we're now scaled horizontally and have a loadbalancer
+### meaning we're now scaled horizontally and have a loadbalancer - we can have the instances on different hosts as well
 ### If you disable one instance from the instances above and re run the `curl` command, you'll only have 1 instance serving.
       
         
@@ -74,15 +78,20 @@
         
       ----------------------------------------------
       
-      >   curl http://localhost:3000/staging/fakeapi
-      >   curl http://localhost:3000/staging/fakeapi
+      >   curl -X POST -H 'Content-Type:application/json' -H 'authorization:bWFqZDpwYXNzd29yZA==' http://localhost:3000/staging/fakeapi
+      >  curl -X POST -H 'Content-Type:application/json' -H 'authorization:bWFqZDpwYXNzd29yZA==' http://localhost:3000/staging/fakeapi
    
       ----------------------------------------------
    
       RESPONSE:
       
-     >   url: http://localhost:3003/
-     >   url: http://localhost:3003/
+      username: majd | password: password
+      Authorized!
+      url: http://localhost:3003/
+    
+      username: majd | password: password
+      Authorized!
+      url: http://localhost:3003/
  
  ### meaning there's only a single instance running the service
  
