@@ -14,7 +14,7 @@ const protocol = "http"
 
 
 app.get('/fakeapi', (req, res, next) => {
-  res.send("Unauthorized! Go back to Login page")
+  res.send("Production fakeapi micro-service that is running on port " + PORT)
   // res.send("TESTING fakeapi micro-service that is running on port " + PORT)
 })
 
