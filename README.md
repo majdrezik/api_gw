@@ -8,15 +8,15 @@
     node server.js
     
 ### right after running the service, the routes/registery.json will be updated with your service.
-### In order to enable the service, run:
+### In order to enable the service, run: (where bWFqZDpwYXNzd29yZA== is base64 encoding of the majd:password as username:password pair)
 
-    curl -X POST -H 'Content-Type: application/json' -d '{"url":"http://localhost:{YOUR_PORT}/","enabled":true}' http://localhost:3000/enable-instance/staging 
+    curl -X POST -H 'Content-Type:application/json' -H 'authorization:bWFqZDpwYXNzd29yZA==' -d '{"url":"http://localhost:3003/","enabled":true}' http://localhost:3000/enable-instance/staging 
 
 ### enabling / disabling an instance in a service is done for times such as maintanance, server down, nightly shutdown etc, in those cases, the api gw should not use the instances
 
-### In order to disable the service, run: (where bWFqZDpwYXNzd29yZA== is base64 encoding of the username:password)
+### In order to disable the service, run: (where bWFqZDpwYXNzd29yZA== is base64 encoding of the majd:password as username:password pair)
 
-    curl -X POST -H 'Content-Type:application/json' -H 'authorization:bWFqZDpwYXNzd29yZA==' -d '{"url":"http://localhost:3003/","enabled":true}' http://localhost:3000/enable-instance/staging 
+    curl -X POST -H 'Content-Type:application/json' -H 'authorization:bWFqZDpwYXNzd29yZA==' -d '{"url":"http://localhost:3003/","enabled":false}' http://localhost:3000/enable-instance/staging 
 
 ### Notice the change in routes/registery.json file.
 
