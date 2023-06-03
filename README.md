@@ -1,4 +1,11 @@
 ## Node.js api gateway app with internal loadbalancing for isntances in each service and basic authorization.
+
+![API Gateway](https://github.com/majdrezik/api_gw/assets/39953455/e89c78ed-3c86-401b-ae9b-3b9d6149a7e1)
+
+
+
+
+
 ### pull the project and get the api gw started by running:
   
     npm run dev
