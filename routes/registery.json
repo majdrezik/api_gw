@@ -1,7 +1,7 @@
 {
   "services": {
     "staging": {
-      "index": 1,
+      "index": 0,
       "instances": [
         {
           "apiName": "staging",
@@ -10,28 +10,6 @@
           "port": 3003,
           "url": "http://localhost:3003/",
           "enabled": true
-        },
-        {
-          "apiName": "staging",
-          "protocol": "http",
-          "host": "localhost",
-          "port": 3004,
-          "url": "http://localhost:3004/",
-          "enabled": true
-        },
-        {
-          "apiName": "staging",
-          "protocol": "http",
-          "host": "localhost",
-          "port": 3005,
-          "url": "http://localhost:3005/"
-        },
-        {
-          "apiName": "staging",
-          "protocol": "http",
-          "host": "localhost",
-          "port": 3006,
-          "url": "http://localhost:3006/"
         }
       ],
       "loadBalancerStrategy": "ROUND_ROBIN"

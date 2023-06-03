@@ -19,7 +19,12 @@ const auth = (req, res, next) => {
       authString is going to look like this 'majd:password'
       we need to split the result
     */
-  const authString = Buffer.from(req.headers.authorization, 'base64').toString('utf8') // from headers, convert the authorization from base 64 to string utf8
+  var authString
+  if (req.headers.authorization) {
+    authString = Buffer.from(req.headers.authorization, 'base64').toString('utf8') // from headers, convert the authorization from base 64 to string utf8
+  } else {
+    res.send("no authorization provided")
+  }
   const authParts = authString.split(":") // returns an array
   const username = authParts[0]
   const password = authParts[1]
