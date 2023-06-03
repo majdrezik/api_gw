@@ -1,9 +1,9 @@
 // 1. npm init -y
 // 2. npm i -D nodemon
 // 3. npm i express axios
-// 4. npm run dev - we configured the package.json
 // middleware express
-// 5. npm install --save helmet (security to our apigw)
+// 4. npm install --save helmet (security to our apigw)
+// 5. npm run dev - we configured the package.json "dev": "nodemon gateway.js",
 
 const registery = require('./routes/registery.json')
 const express = require('express')

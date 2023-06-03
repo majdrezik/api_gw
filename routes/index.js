@@ -175,12 +175,6 @@ const apiAlreadyExists = (registerationInfo) => {
   });
   return exists
 
-  // for (let instance = 0; instance < registery.services[registerationInfo.apiName].length; instance++)
-  //   if (registery.services[registerationInfo.apiName][instance].url === registerationInfo.url) {
-  //     exists = true
-  //     return
-  //   }
-  // return exists
 }
 
 module.exports = router
