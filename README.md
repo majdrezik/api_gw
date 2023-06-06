@@ -1,3 +1,8 @@
+## [See the API documentation on Swagger](https://app.swaggerhub.com/apis-docs/MAJDREZIK_1/api_gw/1.0.0)
+<br>
+<br>
+
+## Description
 ## Node.js api gateway app with internal loadbalancing for isntances in each service and basic authorization (user based & token based).
 
 ![API Gateway](https://github.com/majdrezik/api_gw/assets/39953455/e89c78ed-3c86-401b-ae9b-3b9d6149a7e1)
